@@ -1,96 +1,75 @@
 import java.util.Random;
 
-class SimulatedAnnealingAlgorithm{
+class SimulatedAnnealingAlgorithm {
     private String queen;
     private int seed;
 
-    public SimulatedAnnealingAlgorithm(String queen,int seed){
+    public SimulatedAnnealingAlgorithm(String queen, int seed) {
         this.queen = queen;
         this.seed = seed;
     }
+  
+    private int calculateHeuristic(String queen) {
+        int heuristic = 0;
+        int n = 8;
+        int[] state = new int[queen.length()];
 
-   public int h(String queen){
-    char[] arr = queen.toCharArray();
-    int hu = 0;
-    /// row
-    for(int i = 0 ; i<8;i++){
-       int row = 0;
-      for(int j = 0 ; j<8;j++){
-       if(arr[j]==i+'0'){
-        row++;
-       }
-      }
-      hu += (row * (row-1)) / 2;
-    }
-
-    // diagonal right
-    int col = 0;
-    while(col!=8){
-        int i = 0;
-        int j = col;
-        int counter = 0;
-        while(j!=8){
-            if(arr[j]==i+'0'){
-                counter++;
-            }
-            i++;
-            j++;
+        for (int i = 0; i < queen.length(); i++) {
+            state[i] = queen.charAt(i) - '0'; // تحويل char → int
         }
-        hu+= (counter * (counter-1)) / 2;
-        col++;
-    }
-
-    
-    // diagonal left
-    int col2 = 7;
-    while(col2!=-1){
-        int i = 0;
-        int j = col2;
-        int counter = 0;
-        while(j!=-1){
-            if(arr[j]==i+'0'){
-                counter++;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (state[i] == state[j])
+                    heuristic++;
+                if (Math.abs(state[i] - state[j]) == Math.abs(i - j))
+                    heuristic++;
             }
-            i++;
-            j--;
         }
-        hu+= (counter * (counter-1)) / 2;
-        col2--;
+
+        return heuristic;
     }
 
-    return hu;
-   }
-
-   public void solve(){
-    double t = 100;
-    int h_old = h(queen);
-    String text = queen;
-    char[] arr = text.toCharArray();
-    while(true){
+    public void solve() {
+        int it = 0;
+        double t = 100;
+        int h_old = calculateHeuristic(queen);
+        String text = queen;
+        char[] arr = text.toCharArray();
+        System.out.println(it+": " + queen + "  h = " + h_old + "  T= " + t );
+        it++;
         Random random = new Random(seed);
-        Random random2 = new Random(seed);
-        int col = random.nextInt(8);
-        int row = random2.nextInt(8);
-        t = t*0.95;
-        arr[col] = (char)(row + '0');
-        text = new String(arr);
-        int h_new = h(text);
-        if(h_new==0){
-            /// finish
-            /// return
-        }
-        int E = h_new - h_old;
-        if(E>0){
-            double x = (-E)/t;
-            double p = Math.exp(x);
-            Random random3 = new Random(seed);
-            double u = random3.nextDouble();
-            if(!(u>p)){
+        Random random3 = new Random(seed);
+        while (true) {
+            int col = random.nextInt(8);
+            int row = random.nextInt(8);
+            t = t * 0.95;
+            char old_row = arr[col]; 
+            arr[col] = (char) (row + '0');
+            text = new String(arr);
+            int h_new = calculateHeuristic(text);
+            System.out.println(it+": " + text + "  h = " + h_new + "  T= " + t );
+            it++;
+            if (h_new == 0) {
+                /// finish return
+                return;
+            }
+            int E = h_new - h_old;
+            if (E > 0) {
+                double x = (-E) / t;
+                double p = Math.exp(x);
+                double u = random3.nextDouble();
+                if (!(u > p)) {
+                    h_old = h_new;
+                }
+                else{
+                    arr[col] = old_row;
+                }
+
+            }
+            else{
                 h_old = h_new;
             }
 
         }
-
     }
-   }
 }
