@@ -45,23 +45,33 @@ public class HillClimbingAlgorithm {
             int originalQueenpositionInColumn = state[i];
 
             for (int j = 0; j < n; j++) {
-
                 if (originalQueenpositionInColumn == j)
                     continue;
 
                 int[] testNeighborState = copyBoard(state);
                 testNeighborState[i] = j;
-
                 int neighborHeuristic = calculateHeuristic(testNeighborState);
 
-                if (neighborHeuristic < lowestHeuristicFound) {
-                    lowestHeuristicFound = calculateHeuristic(neighborState);
-                }
+                if (neighborHeuristic < lowestHeuristicFound)
+                    lowestHeuristicFound = neighborHeuristic;
             }
         }
 
-        // need to add possible neighbors with lowest heuristic to possible states
-        // arrayList
+        for (int i = 0; i < n; i++) {
+            int originalQueenpositionInColumn = state[i];
+
+            for (int j = 0; j < n; j++) {
+                if (originalQueenpositionInColumn == j)
+                    continue;
+
+                int[] possibleNeighborState = copyBoard(state);
+                possibleNeighborState[i] = j;
+                int neighborHeuristic = calculateHeuristic(possibleNeighborState);
+
+                if (neighborHeuristic == lowestHeuristicFound)
+                    possibleStates.add(possibleNeighborState);
+            }
+        }
 
         int randomIndex = randomlySelectMoveOut.nextInt(possibleStates.size());
         neighborState = possibleStates.get(randomIndex);
