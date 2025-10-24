@@ -5,13 +5,13 @@ public class HillClimbingAlgorithm {
 
     private int[] state;
     int n;
-    int seed;
+    Random randomlySelectMoveOut;
 
     public HillClimbingAlgorithm(int[] queens, int seed) {
         System.out.println("testing hill climbing algorithm");
         this.state = queens;
         this.n = queens.length;
-        this.seed = seed;
+        this.randomlySelectMoveOut = new Random(seed);
 
     }
 
@@ -42,7 +42,7 @@ public class HillClimbingAlgorithm {
         ArrayList<int[]> possibleStates = new ArrayList<>();
 
         for(int i=0;i<n;i++){
-            int[] board = Copyboard(state);
+            int[] board = copyBoard(state);
 
             for(int j=0 ; j<n; j++){
 
@@ -54,7 +54,7 @@ public class HillClimbingAlgorithm {
 
 
         for(int i=0;i<n;i++){
-            int[] copyBoard = Copyboard;
+            int[] copyBoard = copyBoard;
 
             for(int j=0 ; j<n; j++){
 
@@ -65,10 +65,7 @@ public class HillClimbingAlgorithm {
         }
 
 
-        Random randomlySelectMoveOut = new Random(seed);
-        seed++;
-        int randomBoundary = possibleStates.size();
-        int randomIndex = randomlySelectMoveOut.nextInt(randomBoundary);
+        int randomIndex = randomlySelectMoveOut.nextInt(possibleStates.size());
 
         NeighborState = possibleStates.get(randomIndex);
 
