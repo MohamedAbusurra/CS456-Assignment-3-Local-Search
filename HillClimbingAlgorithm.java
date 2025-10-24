@@ -36,40 +36,36 @@ public class HillClimbingAlgorithm {
         }
     }
 
-    private int[] getNeighbor(int[] state,int heuristic) {
-        int[] NeighborState = new int[n];
+    private int[] getNeighbor(int[] state, int heuristic) {
+        int[] neighborState = new int[n];
         int lowestHeuristicFound = heuristic;
         ArrayList<int[]> possibleStates = new ArrayList<>();
 
-        for(int i=0;i<n;i++){
-            int[] board = copyBoard(state);
+        for (int i = 0; i < n; i++) {
+            int originalQueenpositionInColumn = state[i];
 
-            for(int j=0 ; j<n; j++){
+            for (int j = 0; j < n; j++) {
 
-                if (originalQueenpositionInColumn != j and calculateHeuristic(board) < lowestHeuristicFound){
-                    lowestHeuristicFound = calculateHeuristic(NeighborState);
+                if (originalQueenpositionInColumn == j)
+                    continue;
+
+                int[] testNeighborState = copyBoard(state);
+                testNeighborState[i] = j;
+
+                int neighborHeuristic = calculateHeuristic(testNeighborState);
+
+                if (neighborHeuristic < lowestHeuristicFound) {
+                    lowestHeuristicFound = calculateHeuristic(neighborState);
                 }
             }
         }
 
-
-        for(int i=0;i<n;i++){
-            int[] copyBoard = copyBoard;
-
-            for(int j=0 ; j<n; j++){
-
-                if (calculateHeuristic(board) == lowestHeuristicFound){
-                    possibleStates.add(board);
-                }
-            }
-        }
-
+        // need to add possible neighbors with lowest heuristic to possible states
+        // arrayList
 
         int randomIndex = randomlySelectMoveOut.nextInt(possibleStates.size());
-
-        NeighborState = possibleStates.get(randomIndex);
-
-        return NeighborState;
+        neighborState = possibleStates.get(randomIndex);
+        return neighborState;
     }
 
     private int[] copyBoard(int[] state) {
