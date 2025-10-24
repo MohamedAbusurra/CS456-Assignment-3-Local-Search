@@ -30,10 +30,13 @@ class SimulatedAnnealingAlgorithm {
     }
 
     public void solve() {
+        int it = 0;
         double t = 100;
         int h_old = calculateHeuristic(queen);
         String text = queen;
         char[] arr = text.toCharArray();
+        System.out.println(it+": " + queen + "  h = " + h_old + "  T= " + t );
+        it++;
         while (true) {
             Random random = new Random(seed);
             Random random2 = new Random(seed);
@@ -43,8 +46,11 @@ class SimulatedAnnealingAlgorithm {
             arr[col] = (char) (row + '0');
             text = new String(arr);
             int h_new = calculateHeuristic(text);
+            System.out.println(it+": " + text + "  h = " + h_new + "  T= " + t );
+            it++;
             if (h_new == 0) {
                 /// finish return
+                return;
             }
             int E = h_new - h_old;
             if (E > 0) {
