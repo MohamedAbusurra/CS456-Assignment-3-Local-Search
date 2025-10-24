@@ -37,12 +37,13 @@ class SimulatedAnnealingAlgorithm {
         char[] arr = text.toCharArray();
         System.out.println(it+": " + queen + "  h = " + h_old + "  T= " + t );
         it++;
+        Random random = new Random(seed);
+        Random random3 = new Random(seed);
         while (true) {
-            Random random = new Random(seed);
-            Random random2 = new Random(seed);
             int col = random.nextInt(8);
-            int row = random2.nextInt(8);
+            int row = random.nextInt(8);
             t = t * 0.95;
+            char old_row = arr[col]; 
             arr[col] = (char) (row + '0');
             text = new String(arr);
             int h_new = calculateHeuristic(text);
@@ -56,12 +57,17 @@ class SimulatedAnnealingAlgorithm {
             if (E > 0) {
                 double x = (-E) / t;
                 double p = Math.exp(x);
-                Random random3 = new Random(seed);
                 double u = random3.nextDouble();
                 if (!(u > p)) {
                     h_old = h_new;
                 }
+                else{
+                    arr[col] = old_row;
+                }
 
+            }
+            else{
+                h_old = h_new;
             }
 
         }
