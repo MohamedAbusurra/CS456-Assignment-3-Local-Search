@@ -22,7 +22,25 @@ class SimulatedAnnealingAlgorithm{
       }
       hu += (row * (row-1)) / 2;
     }
-    
+
+    // diagonal right
+    int col = 0;
+    while(col!=8){
+        int i = 0;
+        int j = col;
+        int counter = 0;
+        while(j!=8){
+            if(arr[j]==i){
+                counter++;
+            }
+            i++;
+            j++;
+        }
+        hu+= (counter * (counter-1)) / 2;
+        col++;
+    }
+
+
     
     return hu;
    }
