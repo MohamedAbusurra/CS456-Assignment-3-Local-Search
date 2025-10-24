@@ -24,16 +24,35 @@ public class HillClimbingAlgorithm {
         return heuristic;
     }
 
+    private void printBoard(int[] state) {
+        for (int i = 0; i < n; i++) {
+            System.out.print(state[i]);
+        }
+    }
+
+    private int[] getNeighbor(int[] state) {
+        int[] NeighborState = new int[n];
+
+        return NeighborState;
+    }
+
     public void performHillCLimbingSearch() {
         int[] currentState = state;
+        int step = 0;
 
         while (true) {
             int currentStateHeuristic = calculateHeuristic(currentState);
+
+            System.out.print(step + ":");
+            printBoard(currentState);
+            System.out.println(" " + currentStateHeuristic);
 
             if (currentStateHeuristic == 0) {
                 System.out.print("Solved");
                 break;
             }
+
+            currentState = getNeighbor(currentState);
 
         }
 
