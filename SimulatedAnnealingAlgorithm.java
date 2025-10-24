@@ -10,8 +10,21 @@ class SimulatedAnnealingAlgorithm{
     }
 
    public int h(String queen){
-
-    return 0;
+    char[] arr = queen.toCharArray();
+    int hu = 0;
+    /// row
+    for(int i = 0 ; i<8;i++){
+       int row = 0;
+      for(int j = 0 ; j<8;j++){
+       if(arr[j]==i){
+        row++;
+       }
+      }
+      hu += (row * (row-1)) / 2;
+    }
+    
+    
+    return hu;
    }
 
    public void solve(){
@@ -28,6 +41,10 @@ class SimulatedAnnealingAlgorithm{
         arr[col] = (char)(row + '0');
         text = new String(arr);
         int h_new = h(text);
+        if(h_new==0){
+            /// finish
+            /// return
+        }
         int E = h_new - h_old;
         if(E>0){
             double x = (-E)/t;
