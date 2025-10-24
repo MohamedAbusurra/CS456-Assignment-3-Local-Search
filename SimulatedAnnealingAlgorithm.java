@@ -8,7 +8,7 @@ class SimulatedAnnealingAlgorithm {
         this.queen = queen;
         this.seed = seed;
     }
-  
+
     private int calculateHeuristic(String queen) {
         int heuristic = 0;
         int n = 8;
@@ -35,7 +35,7 @@ class SimulatedAnnealingAlgorithm {
         int h_old = calculateHeuristic(queen);
         String text = queen;
         char[] arr = text.toCharArray();
-        System.out.println(it+": " + queen + "  h = " + h_old + "  T= " + t );
+        System.out.println(it + ": " + queen + "  h = " + h_old + "  T= " + t);
         it++;
         Random random = new Random(seed);
         Random random3 = new Random(seed);
@@ -43,13 +43,13 @@ class SimulatedAnnealingAlgorithm {
             int col = random.nextInt(8);
             int row = random.nextInt(8);
             t = t * 0.95;
-            char old_row = arr[col]; 
+            char old_row = arr[col];
             arr[col] = (char) (row + '0');
             text = new String(arr);
             int h_new = calculateHeuristic(text);
-            System.out.println(it+": " + text + "  h = " + h_new + "  T= " + t );
-            it++;
             if (h_new == 0) {
+                System.out.println(it + ": " + text + "  h = " + h_new + "  T= " + t);
+                it++;
                 /// finish return
                 return;
             }
@@ -60,14 +60,16 @@ class SimulatedAnnealingAlgorithm {
                 double u = random3.nextDouble();
                 if (!(u > p)) {
                     h_old = h_new;
-                }
-                else{
+                    System.out.println(it + ": " + text + "  h = " + h_new + "  T= " + t);
+                    it++;
+                } else {
                     arr[col] = old_row;
                 }
 
-            }
-            else{
+            } else {
                 h_old = h_new;
+                System.out.println(it + ": " + text + "  h = " + h_new + "  T= " + t);
+                it++;
             }
 
         }
