@@ -16,14 +16,48 @@ class SimulatedAnnealingAlgorithm{
     for(int i = 0 ; i<8;i++){
        int row = 0;
       for(int j = 0 ; j<8;j++){
-       if(arr[j]==i){
+       if(arr[j]==i+'0'){
         row++;
        }
       }
       hu += (row * (row-1)) / 2;
     }
+
+    // diagonal right
+    int col = 0;
+    while(col!=8){
+        int i = 0;
+        int j = col;
+        int counter = 0;
+        while(j!=8){
+            if(arr[j]==i+'0'){
+                counter++;
+            }
+            i++;
+            j++;
+        }
+        hu+= (counter * (counter-1)) / 2;
+        col++;
+    }
+
     
-    
+    // diagonal left
+    int col2 = 7;
+    while(col2!=-1){
+        int i = 0;
+        int j = col2;
+        int counter = 0;
+        while(j!=-1){
+            if(arr[j]==i+'0'){
+                counter++;
+            }
+            i++;
+            j--;
+        }
+        hu+= (counter * (counter-1)) / 2;
+        col2--;
+    }
+
     return hu;
    }
 
