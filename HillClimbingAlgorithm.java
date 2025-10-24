@@ -1,12 +1,18 @@
+import java.util.ArrayList;
+import java.util.Random;
+
 public class HillClimbingAlgorithm {
 
     private int[] state;
     int n;
+    int seed;
 
-    public HillClimbingAlgorithm(int[] queens) {
+    public HillClimbingAlgorithm(int[] queens, int seed) {
         System.out.println("testing hill climbing algorithm");
         this.state = queens;
         this.n = queens.length;
+        this.seed = seed;
+
     }
 
     private int calculateHeuristic(int[] state) {
@@ -30,10 +36,50 @@ public class HillClimbingAlgorithm {
         }
     }
 
-    private int[] getNeighbor(int[] state) {
+    private int[] getNeighbor(int[] state,int heuristic) {
         int[] NeighborState = new int[n];
+        int lowestHeuristicFound = heuristic;
+        ArrayList<int[]> possibleStates = new ArrayList<>();
+
+        for(int i=0;i<n;i++){
+            int[] board = Copyboard(state);
+
+            for(int j=0 ; j<n; j++){
+
+                if (originalQueenpositionInColumn != j and calculateHeuristic(board) < lowestHeuristicFound){
+                    lowestHeuristicFound = calculateHeuristic(NeighborState);
+                }
+            }
+        }
+
+
+        for(int i=0;i<n;i++){
+            int[] copyBoard = Copyboard;
+
+            for(int j=0 ; j<n; j++){
+
+                if (calculateHeuristic(board) == lowestHeuristicFound){
+                    possibleStates.add(board);
+                }
+            }
+        }
+
+
+        Random randomlySelectMoveOut = new Random(seed);
+        seed++;
+        int randomBoundary = possibleStates.size();
+        int randomIndex = randomlySelectMoveOut.nextInt(randomBoundary);
+
+        NeighborState = possibleStates.get(randomIndex);
 
         return NeighborState;
+    }
+
+    private int[] copyBoard(int[] state) {
+        int[] copyBoard = new int[n];
+        for (int i = 0; i < n; i++)
+            copyBoard[i] = state[i];
+        return copyBoard;
     }
 
     public void performHillCLimbingSearch() {
@@ -52,7 +98,7 @@ public class HillClimbingAlgorithm {
                 break;
             }
 
-            currentState = getNeighbor(currentState);
+            currentState = getNeighbor(currentState, currentStateHeuristic);
 
         }
 

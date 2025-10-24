@@ -25,14 +25,14 @@ public class Main {
                 continue;
             }
 
+            System.out.print("enter a Random seed: ");
+            int seed = scanner.nextInt();
+
             if (option == 1) {
-                HillClimbingAlgorithm hillclimbingAlgorithm = new HillClimbingAlgorithm(queenPositionArray);
+                HillClimbingAlgorithm hillclimbingAlgorithm = new HillClimbingAlgorithm(queenPositionArray, seed);
                 hillclimbingAlgorithm.performHillCLimbingSearch();
             } else if (option == 2) {
-                System.out.print("enter a generator seed: ");
-                int seedNumber = scanner.nextInt();
-                SimulatedAnnealingAlgorithm simulatedAnnealingAlgorithm = new SimulatedAnnealingAlgorithm(null,
-                        seedNumber);
+                SimulatedAnnealingAlgorithm simulatedAnnealingAlgorithm = new SimulatedAnnealingAlgorithm(null, seed);
                 simulatedAnnealingAlgorithm.solve();
             } else
                 break;
