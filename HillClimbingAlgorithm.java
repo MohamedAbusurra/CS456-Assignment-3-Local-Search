@@ -1,13 +1,41 @@
 public class HillClimbingAlgorithm {
 
-    private int[] queenPositionArray;
+    private int[] state;
+    int n;
 
-    public HillClimbingAlgorithm(int[] queenPositionArray) {
+    public HillClimbingAlgorithm(int[] queens) {
         System.out.println("testing hill climbing algorithm");
-        this.queenPositionArray = queenPositionArray;
+        this.state = queens;
+        this.n = queens.length;
+    }
+
+    private int calculateHeuristic(int[] state) {
+        int heuristic = 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (state[i] == state[j])
+                    heuristic++;
+                if (Math.abs(state[i] - state[j]) == Math.abs(i - j))
+                    heuristic++;
+            }
+        }
+
+        return heuristic;
     }
 
     public void performHillCLimbingSearch() {
+        int[] currentState = state;
+
+        while (true) {
+            int currentStateHeuristic = calculateHeuristic(currentState);
+
+            if (currentStateHeuristic == 0) {
+                System.out.print("Solved");
+                break;
+            }
+
+        }
 
     }
 
