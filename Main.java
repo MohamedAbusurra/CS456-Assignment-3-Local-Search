@@ -31,7 +31,7 @@ public class Main {
 
             if (option == 1) {
                 HillClimbingAlgorithm hillclimbingAlgorithm = new HillClimbingAlgorithm(queenPositionArray, seed);
-                hillclimbingAlgorithm.performHillCLimbingSearch();
+                hillclimbingAlgorithm.performHillClimbingSearch();
             } else if (option == 2) {
                 SimulatedAnnealingAlgorithm simulatedAnnealingAlgorithm = new SimulatedAnnealingAlgorithm(null, seed);
                 simulatedAnnealingAlgorithm.solve();

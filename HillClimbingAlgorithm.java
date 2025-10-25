@@ -89,8 +89,8 @@ public class HillClimbingAlgorithm {
         return copyBoard;
     }
 
-    public void performHillCLimbingSearch() {
-        int[] currentState = state;
+    public void performHillClimbingSearch() {
+        int[] currentState = copyBoard(state);
         int step = 0;
         int currentStateHeuristic;
 
@@ -111,8 +111,10 @@ public class HillClimbingAlgorithm {
 
             currentState = getNeighbor(currentState, currentStateHeuristic);
 
-            if (currentState == null)
-                continue;
+            if (currentState == null) {
+                System.out.println("Stuck");
+                break;
+            }
 
             step++;
 
