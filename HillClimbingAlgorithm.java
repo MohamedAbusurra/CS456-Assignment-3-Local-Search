@@ -6,11 +6,12 @@ public class HillClimbingAlgorithm {
     private int[] state;
     int n;
     Random randomlySelectMoveOut;
+    int seed;
 
     public HillClimbingAlgorithm(int[] queens, int seed) {
-        System.out.println("testing hill climbing algorithm");
         this.state = queens;
         this.n = queens.length;
+        this.seed = seed;
         this.randomlySelectMoveOut = new Random(seed);
 
     }
@@ -73,6 +74,9 @@ public class HillClimbingAlgorithm {
             }
         }
 
+        if (possibleStates.size() == 0)
+            return null;
+
         int randomIndex = randomlySelectMoveOut.nextInt(possibleStates.size());
         neighborState = possibleStates.get(randomIndex);
         return neighborState;
@@ -88,20 +92,29 @@ public class HillClimbingAlgorithm {
     public void performHillCLimbingSearch() {
         int[] currentState = state;
         int step = 0;
+        int currentStateHeuristic;
+
+        System.out.println();
+        System.out.println("Hill Climbing Search with " + seed + " as random generator seed");
 
         while (true) {
-            int currentStateHeuristic = calculateHeuristic(currentState);
+            currentStateHeuristic = calculateHeuristic(currentState);
 
-            System.out.print(step + ":");
+            System.out.print(step + ": ");
             printBoard(currentState);
             System.out.println(" " + currentStateHeuristic);
 
             if (currentStateHeuristic == 0) {
-                System.out.print("Solved");
+                System.out.println("Solved");
                 break;
             }
 
             currentState = getNeighbor(currentState, currentStateHeuristic);
+
+            if (currentState == null)
+                continue;
+
+            step++;
 
         }
 

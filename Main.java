@@ -13,6 +13,7 @@ public class Main {
         }
 
         while (true) {
+            System.out.println();
             System.out.println("Choose an option");
             System.out.println("1.Perform Hill Climbing Search");
             System.out.println("2.Perform Simluated Annealing Search");
@@ -36,8 +37,9 @@ public class Main {
                 simulatedAnnealingAlgorithm.solve();
             } else
                 break;
-
         }
+
+        scanner.close();
 
     }
 }
