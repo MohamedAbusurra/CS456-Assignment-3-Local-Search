@@ -38,7 +38,6 @@ public class HillClimbingAlgorithm {
     }
 
     private int[] getNeighbor(int[] state, int heuristic) {
-        int[] neighborState = new int[n];
         int lowestHeuristicFound = heuristic;
         ArrayList<int[]> possibleStates = new ArrayList<>();
 
@@ -78,8 +77,8 @@ public class HillClimbingAlgorithm {
             return null;
 
         int randomIndex = randomlySelectMoveOut.nextInt(possibleStates.size());
-        neighborState = possibleStates.get(randomIndex);
-        return neighborState;
+        return possibleStates.get(randomIndex);
+
     }
 
     private int[] copyBoard(int[] state) {
