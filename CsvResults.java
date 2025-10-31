@@ -22,4 +22,12 @@ public class CsvResults {
         }
     }
 
+    public void close() {
+        try {
+            writer.close();
+        } catch (IOException e) {
+            System.err.println("Error closing the file!");
+        }
+    }
+
 }
