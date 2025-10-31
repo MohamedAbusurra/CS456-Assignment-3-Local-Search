@@ -9,9 +9,17 @@ public class CsvResults {
         try {
             writer = new FileWriter(fileName);
         } catch (IOException e) {
-            System.err.println("Error opening csv file!");
+            System.err.println("Error opening the csv file!");
         }
 
+    }
+
+    public void enterResults(int iteration, int heuristic, String testCase, String algorithm) {
+        try {
+            writer.write(iteration + "," + heuristic + "," + testCase + "," + algorithm + "\n");
+        } catch (IOException e) {
+            System.err.println("Error writing into the csv file!");
+        }
     }
 
 }
