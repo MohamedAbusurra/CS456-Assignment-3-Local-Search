@@ -8,6 +8,8 @@ public class CsvResults {
     private CsvResults(String fileName) {
         try {
             writer = new FileWriter(fileName);
+            writer.write("iteration,heuristic_cost,algorithm,test_case\n");
+
         } catch (IOException e) {
             System.err.println("Error opening the csv file!");
         }
