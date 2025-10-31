@@ -5,14 +5,17 @@ public class HillClimbingAlgorithm {
 
     private int[] state;
     int n;
-    Random randomlySelectMoveOut;
+    Random randomlySelectNeighbor;
     int seed;
+    int testCase;
+    static CsvResults csvFile = new CsvResults("HillClimbingResults.csv");
 
-    public HillClimbingAlgorithm(int[] queens, int seed) {
+    public HillClimbingAlgorithm(int[] queens, int seed, int testCase) {
         this.state = queens;
         this.n = queens.length;
         this.seed = seed;
-        this.randomlySelectMoveOut = new Random(seed);
+        this.randomlySelectNeighbor = new Random(seed);
+        this.testCase = testCase;
 
     }
 
@@ -76,7 +79,7 @@ public class HillClimbingAlgorithm {
         if (possibleStates.size() == 0)
             return null;
 
-        int randomIndex = randomlySelectMoveOut.nextInt(possibleStates.size());
+        int randomIndex = randomlySelectNeighbor.nextInt(possibleStates.size());
         return possibleStates.get(randomIndex);
 
     }
@@ -90,7 +93,7 @@ public class HillClimbingAlgorithm {
 
     public void performHillClimbingSearch() {
         int[] currentState = copyBoard(state);
-        int step = 0;
+        int iteration = 0;
         int currentStateHeuristic;
 
         System.out.println();
@@ -99,9 +102,10 @@ public class HillClimbingAlgorithm {
         while (true) {
             currentStateHeuristic = calculateHeuristic(currentState);
 
-            System.out.print(step + ": ");
+            System.out.print(iteration + ": ");
             printBoard(currentState);
             System.out.println(" " + currentStateHeuristic);
+            csvFile.enterResults(iteration, currentStateHeuristic, testCase);
 
             if (currentStateHeuristic == 0) {
                 System.out.println("Solved");
@@ -115,7 +119,7 @@ public class HillClimbingAlgorithm {
                 break;
             }
 
-            step++;
+            iteration++;
 
         }
 

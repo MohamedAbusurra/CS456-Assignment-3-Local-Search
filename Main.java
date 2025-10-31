@@ -76,8 +76,11 @@ public class Main {
             System.out.print("Enter number for option chosen: ");
             option = scanner.nextInt();
 
-            if (option == 4)
+            if (option == 4) {
+                HillClimbingAlgorithm.csvFile.close();
+                // SimulatedAnnealingAlgorithm.csvFile.close();
                 break;
+            }
 
             if (option == 3) {
                 queenPositions = getInputsString(option, givenQueenPositionInput, scanner);
@@ -93,8 +96,12 @@ public class Main {
             System.out.print("Enter a random seed: ");
             int seed = scanner.nextInt();
 
+            System.out.print("Enter test case number: ");
+            int testCase = scanner.nextInt();
+
             if (option == 1) {
-                HillClimbingAlgorithm hillclimbingAlgorithm = new HillClimbingAlgorithm(queenPositionsArray, seed);
+                HillClimbingAlgorithm hillclimbingAlgorithm = new HillClimbingAlgorithm(queenPositionsArray, seed,
+                        testCase);
                 hillclimbingAlgorithm.performHillClimbingSearch();
             } else if (option == 2) {
                 SimulatedAnnealingAlgorithm simulatedAnnealingAlgorithm = new SimulatedAnnealingAlgorithm(

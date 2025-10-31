@@ -5,10 +5,10 @@ public class CsvResults {
 
     private FileWriter writer;
 
-    private CsvResults(String fileName) {
+    public CsvResults(String fileName) {
         try {
             writer = new FileWriter(fileName);
-            writer.write("iteration,heuristic_cost,algorithm,test_case\n");
+            writer.write("iteration,heuristic_cost,test_case\n");
 
         } catch (IOException e) {
             System.err.println("Error opening the csv file!");
@@ -16,9 +16,9 @@ public class CsvResults {
 
     }
 
-    public void enterResults(int iteration, int heuristic, String testCase, String algorithm) {
+    public void enterResults(int iteration, int heuristic, int testCase) {
         try {
-            writer.write(iteration + "," + heuristic + "," + testCase + "," + algorithm + "\n");
+            writer.write(iteration + "," + heuristic + "," + testCase + "\n");
         } catch (IOException e) {
             System.err.println("Error writing into the csv file!");
         }
