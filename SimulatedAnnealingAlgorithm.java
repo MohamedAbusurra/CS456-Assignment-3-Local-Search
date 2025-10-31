@@ -2,11 +2,18 @@ import java.util.Random;
 
 class SimulatedAnnealingAlgorithm {
     private String queen;
-    private int seed;
+    private Random random;
+    private int max_iteritor = 1000 ; 
 
     public SimulatedAnnealingAlgorithm(String queen, int seed) {
         this.queen = queen;
-        this.seed = seed;
+        this.random = new Random(seed);
+    }
+
+     public SimulatedAnnealingAlgorithm(String queen, int seed,int max_iteritor) {
+        this.queen = queen;
+        this.random = new Random(seed);
+        this.max_iteritor = max_iteritor;
     }
 
     private int calculateHeuristic(String queen) {
@@ -15,7 +22,7 @@ class SimulatedAnnealingAlgorithm {
         int[] state = new int[queen.length()];
 
         for (int i = 0; i < queen.length(); i++) {
-            state[i] = queen.charAt(i) - '0'; // تحويل char → int
+            state[i] = queen.charAt(i) - '0'; 
         }
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
@@ -28,48 +35,65 @@ class SimulatedAnnealingAlgorithm {
 
         return heuristic;
     }
+    private void print_result(int it , String queen , int h , double t){
+        System.out.println(it + ": " + queen + "  h = " + h + "  T= " + t);
+        if(h==0){
+            System.out.println("solved");
+        }
+        if(it == max_iteritor-1 ){
+           System.out.println("max iterations reached");
+        }
+    }
+
+    private boolean accept( double p){
+      double u = random.nextDouble();
+      if(u<p){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+    private char tochar(int row){
+        return (char) (row + '0');
+    }
 
     public void solve() {
         int it = 0;
         double t = 100;
         int h_old = calculateHeuristic(queen);
-        String text = queen;
-        char[] arr = text.toCharArray();
-        System.out.println(it + ": " + queen + "  h = " + h_old + "  T= " + t);
-        it++;
-        Random random = new Random(seed);
-        Random random3 = new Random(seed);
-        while (true) {
+        char[] arr = queen.toCharArray();  // all work in this array (updated always (rerendiring))
+        print_result(it++,queen,h_old,t);
+        if(h_old==0){
+            return;
+        }
+        while (t>0) {
             int col = random.nextInt(8);
             int row = random.nextInt(8);
             t = t * 0.95;
-            char old_row = arr[col];
-            arr[col] = (char) (row + '0');
-            text = new String(arr);
+            char old_row = arr[col]; // it used only for backtracking if p not accpet it
+            arr[col] = tochar(row);
+            String text = new String(arr);
             int h_new = calculateHeuristic(text);
+            print_result(it++,text,h_new,t);
             if (h_new == 0) {
-                System.out.println(it + ": " + text + "  h = " + h_new + "  T= " + t);
-                it++;
-                /// finish return
+                return;
+            }
+            if(it == max_iteritor){
                 return;
             }
             int E = h_new - h_old;
             if (E > 0) {
                 double x = (-E) / t;
                 double p = Math.exp(x);
-                double u = random3.nextDouble();
-                if (!(u > p)) {
+                if (accept(p)) {
                     h_old = h_new;
-                    System.out.println(it + ": " + text + "  h = " + h_new + "  T= " + t);
-                    it++;
                 } else {
-                    arr[col] = old_row;
+                    arr[col] = old_row; // if its not accepted back to old rerdender (backtracking)
                 }
 
             } else {
                 h_old = h_new;
-                System.out.println(it + ": " + text + "  h = " + h_new + "  T= " + t);
-                it++;
             }
 
         }
