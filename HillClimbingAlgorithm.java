@@ -7,16 +7,14 @@ public class HillClimbingAlgorithm {
     int n;
     Random randomlySelectNeighbor;
     int seed;
-    int testCase;
-    static CsvResults csvFile = new CsvResults("HillClimbingResults.csv");
+    private CsvResults csv;
 
-    public HillClimbingAlgorithm(int[] queens, int seed, int testCase) {
+    public HillClimbingAlgorithm(int[] queens, int seed, CsvResults csv) {
         this.state = queens;
         this.n = queens.length;
         this.seed = seed;
+        this.csv = csv;
         this.randomlySelectNeighbor = new Random(seed);
-        this.testCase = testCase;
-
     }
 
     private int calculateHeuristic(int[] state) {
@@ -101,11 +99,11 @@ public class HillClimbingAlgorithm {
 
         while (true) {
             currentStateHeuristic = calculateHeuristic(currentState);
+            csv.enterResults(iteration, currentStateHeuristic, null);
 
             System.out.print(iteration + ": ");
             printBoard(currentState);
             System.out.println(" " + currentStateHeuristic);
-            csvFile.enterResults(iteration, currentStateHeuristic, testCase);
 
             if (currentStateHeuristic == 0) {
                 System.out.println("Solved");

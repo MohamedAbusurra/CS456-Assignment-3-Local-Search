@@ -65,6 +65,7 @@ public class Main {
 
         queenPositions = getInputsString(option, givenQueenPositionInput, scanner);
         queenPositionsArray = getInputsIntArray(queenPositions, queenPositionsArray);
+        CsvResults csv = new CsvResults("results.csv");
 
         while (true) {
             System.out.println();
@@ -77,8 +78,6 @@ public class Main {
             option = scanner.nextInt();
 
             if (option == 4) {
-                HillClimbingAlgorithm.csvFile.close();
-                // SimulatedAnnealingAlgorithm.csvFile.close();
                 break;
             }
 
@@ -96,20 +95,18 @@ public class Main {
             System.out.print("Enter a random seed: ");
             int seed = scanner.nextInt();
 
-            System.out.print("Enter test case number: ");
-            int testCase = scanner.nextInt();
-
             if (option == 1) {
-                HillClimbingAlgorithm hillclimbingAlgorithm = new HillClimbingAlgorithm(queenPositionsArray, seed,
-                        testCase);
+                HillClimbingAlgorithm hillclimbingAlgorithm = new HillClimbingAlgorithm(queenPositionsArray, seed, csv);
                 hillclimbingAlgorithm.performHillClimbingSearch();
             } else if (option == 2) {
                 SimulatedAnnealingAlgorithm simulatedAnnealingAlgorithm = new SimulatedAnnealingAlgorithm(
-                        queenPositions, seed);
+                        queenPositions, seed, csv);
+
                 simulatedAnnealingAlgorithm.solve();
             }
         }
 
         scanner.close();
+        csv.close();
     }
 }
