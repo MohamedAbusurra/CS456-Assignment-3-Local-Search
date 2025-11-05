@@ -6,7 +6,7 @@ Implemented Algorithms
 
     -- Hill Climbing Search Algorithm
         -- Uses random with seed for tie-breakers on possible successor states.
-        -- Program stops once heuristic = 0 for the current solution state (no queens can attack each other).
+        -- Program stops once heuristic = 0 for the current solution state (no queens can attack each other) or once algorithm gets stuck (no equal or better neighbors).
         -- Prints step number, solution state board configuration, and heuristic value in each iteration.
 
     -- Simulated Annealing Search Algorithm
@@ -31,3 +31,4 @@ Input
             - Index: column where the queen is located.
             - Value of index (0–7): queen’s position in that column.
     -- seed: Integer to allow for control of randomization for reproducing results.
+    -- Max iterations (for Simulated Annealing): Maximum number of iterations allowed for the Simulated Annealing search.
