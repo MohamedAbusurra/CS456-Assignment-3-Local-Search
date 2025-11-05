@@ -22,8 +22,10 @@ public class HillClimbingAlgorithm {
 
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
+                // Checks the rows for conflicts.
                 if (state[i] == state[j])
                     heuristic++;
+                // Checks the diagonals to see for conflicts.
                 if (Math.abs(state[i] - state[j]) == Math.abs(i - j))
                     heuristic++;
             }
@@ -42,6 +44,8 @@ public class HillClimbingAlgorithm {
         int lowestHeuristicFound = heuristic;
         ArrayList<int[]> possibleStates = new ArrayList<>();
 
+        // Iterates trough all neighbors with initial lowest heuristic being the current
+        // state and stores the value of the lowest neighbor heuristic (if found).
         for (int i = 0; i < n; i++) {
             int originalQueenpositionInColumn = state[i];
 
@@ -58,6 +62,7 @@ public class HillClimbingAlgorithm {
             }
         }
 
+        // iterates through all states storing neighbors with lowest found heuristic
         for (int i = 0; i < n; i++) {
             int originalQueenpositionInColumn = state[i];
 
@@ -74,9 +79,11 @@ public class HillClimbingAlgorithm {
             }
         }
 
+        // if no equal or better move return null.
         if (possibleStates.size() == 0)
             return null;
 
+        // Returns a random possible neighbor if one exists.
         int randomIndex = randomlySelectNeighbor.nextInt(possibleStates.size());
         return possibleStates.get(randomIndex);
 
@@ -105,6 +112,7 @@ public class HillClimbingAlgorithm {
             printBoard(currentState);
             System.out.println(" " + currentStateHeuristic);
 
+            // Terminates search if optimal solution found (solved).
             if (currentStateHeuristic == 0) {
                 System.out.println("Solved");
                 break;
@@ -112,6 +120,7 @@ public class HillClimbingAlgorithm {
 
             currentState = getNeighbor(currentState, currentStateHeuristic);
 
+            // terminates search if no equal or worse neighbors exist (stuck).
             if (currentState == null) {
                 System.out.println("Stuck");
                 break;
