@@ -14,7 +14,7 @@ Implemented Algorithms
         -- Randomness is controlled by seed to reproduce results.
         -- Initial temperature = 100
         -- Cooling rate = 0.95
-        -- Executes for up to 99 iterations (00-99), stopping early if heuristic = 0 or temperature approaches 0, printing "Solved" before terminating.
+        -- Executes for up to input chosen number of iterations (eg: 00-99), stopping early if heuristic = 0.
         -- Prints step number, solution state board configuration, and temperature in each iteration.
 
 Core Ideas
