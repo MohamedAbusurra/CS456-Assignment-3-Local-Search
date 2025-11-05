@@ -99,8 +99,10 @@ public class Main {
                 HillClimbingAlgorithm hillclimbingAlgorithm = new HillClimbingAlgorithm(queenPositionsArray, seed, csv);
                 hillclimbingAlgorithm.performHillClimbingSearch();
             } else if (option == 2) {
+                System.out.print("Enter maximum number of iterations: ");
+                int iterationsMax = scanner.nextInt();
                 SimulatedAnnealingAlgorithm simulatedAnnealingAlgorithm = new SimulatedAnnealingAlgorithm(
-                        queenPositions, seed, csv);
+                        queenPositions, seed, csv, iterationsMax);
 
                 simulatedAnnealingAlgorithm.solve();
             }

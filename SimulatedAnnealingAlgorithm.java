@@ -3,7 +3,7 @@ import java.util.Random;
 class SimulatedAnnealingAlgorithm {
     private String queen;
     private Random random;
-    private int max_iteritor = 100000000;
+    private int max_iteritor = 500;
     private CsvResults csv;
 
     public SimulatedAnnealingAlgorithm(String queen, int seed, CsvResults csv) {
@@ -12,9 +12,10 @@ class SimulatedAnnealingAlgorithm {
         this.csv = csv;
     }
 
-    public SimulatedAnnealingAlgorithm(String queen, int seed, int max_iteritor) {
+    public SimulatedAnnealingAlgorithm(String queen, int seed, CsvResults csv, int max_iteritor) {
         this.queen = queen;
         this.random = new Random(seed);
+        this.csv = csv;
         this.max_iteritor = max_iteritor;
     }
 
